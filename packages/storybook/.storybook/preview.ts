@@ -23,7 +23,7 @@ const preview: Preview = {
             'Bienvenue',
             'Étape 1 — Tokens Figma',
             'Étape 2 — Premier composant',
-            'Étape 3 — CI/CD',
+            'Étape 3 — CI-CD',
             'Étape 4 — Code Connect',
           ],
           'Fondations',

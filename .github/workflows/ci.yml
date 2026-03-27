@@ -53,4 +53,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run build --filter=@starter/tokens
-      - run: pnpm turbo run test
+      - name: Tests
+        run: |
+          TEST_FILES=$(find packages -name "*.test.tsx" -o -name "*.test.ts" 2>/dev/null)
+          if [ -z "$TEST_FILES" ]; then
+            echo "Aucun fichier de test trouvé — étape ignorée."
+            exit 0
+          fi
+          pnpm test

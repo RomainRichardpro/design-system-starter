@@ -27,11 +27,13 @@ Il suit une architecture monorepo avec pnpm + Turborepo.
 
 2. Toujours lire COMPONENTS.md avant d'implémenter un composant
 
-3. Tokens CSS — nomenclature stricte :
-   - ✅ `--background-neutral-default`
-   - ✅ `--text-neutral-default`
-   - ✅ `--border-brand-primary-default`
-   - ❌ jamais `--color-background-*` ni `--color-text-*`
+3. Tokens CSS — convention de nommage stricte :
+   Les tokens suivent la structure sémantique définie dans COMPONENTS.md.
+   - Utilise uniquement les tokens définis dans `packages/tokens/build/css/`
+   - Ne jamais inventer une valeur arbitraire si un token existe
+   - Ne jamais préfixer les tokens avec `--color-*`
+   - La structure est : `--[catégorie]-[variante]-[état]`
+     ex: `--background-neutral-default`, `--text-brand-primary`
 
 4. Accessibilité WCAG 2.1 AA non négociable :
    - Navigation clavier complète

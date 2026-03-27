@@ -7,41 +7,27 @@ import { Meta } from '@storybook/blocks';
 Cette étape te guide dans le workflow complet de création d'un composant,
 de Figma jusqu'au code.
 
-## Vue d'ensemble du workflow
-
-```
-Figma (design) → Claude AI (lecture + API) → Claude Code (implémentation) → Storybook (vérification)
-```
-
 Tu utilises **deux outils Claude distincts** :
 - **Claude AI** (claude.ai) — pour lire Figma et définir l'API du composant
 - **Claude Code** (terminal) — pour implémenter les fichiers
 
----
-
-## Étape 2.1 — Préparer le composant dans Figma
+## 1. Préparer le composant dans Figma
 
 Avant de demander à Claude de lire un composant, il doit être finalisé dans Figma :
 - Tous les variants définis
 - Tous les états représentés (default, hover, focus, disabled, error…)
 - Les variables Figma branchées sur les éléments
 
-### Trouver le Node ID du composant
-
-Le Node ID est l'identifiant unique du composant dans Figma.
-Tu en as besoin pour que Claude puisse le lire directement.
+### Trouver le Node ID
 
 1. Dans Figma, sélectionne le **Component Set** de ton composant
-   (pas un variant individuel — le composant parent qui les contient tous)
+   (le composant parent qui contient tous les variants)
 2. Regarde l'URL dans ton navigateur :
    `https://www.figma.com/file/XXXX/...?node-id=18-797`
 3. Copie la valeur après `node-id=` : `18-797`
-4. Remplace le tiret par deux-points : `18:797`
-   C'est ton Node ID.
+4. Remplace le tiret par deux-points : `18:797` — c'est ton Node ID
 
----
-
-## Étape 2.2 — Lire le composant avec Claude AI
+## 2. Lire le composant avec Claude AI
 
 Ouvre **claude.ai** et utilise ce prompt :
 
@@ -53,19 +39,15 @@ Pour ce composant :
 - Identifie tous les états (default, hover, focus, disabled, error…)
 - Identifie les tailles si applicable
 - Identifie les tokens utilisés (couleurs, espacements, typographie)
-- Propose une API React propre et cohérente qui reflète fidèlement
-  la structure Figma
+- Propose une API React propre et cohérente qui reflète fidèlement la structure Figma
 
 Ne génère pas de code pour l'instant — je veux d'abord valider l'API.
 ```
 
 > **Où trouver la clé Figma ?**
-> Dans l'URL de ton fichier Figma :
-> `https://www.figma.com/file/[CLÉ_FIGMA]/nom-du-fichier`
+> Dans l'URL de ton fichier : `https://www.figma.com/file/[CLÉ_FIGMA]/nom-du-fichier`
 
----
-
-## Étape 2.3 — Valider l'API
+## 3. Valider l'API
 
 Avant de lancer l'implémentation, vérifie que l'API proposée par Claude
 correspond à ton intention de design :
@@ -76,9 +58,7 @@ correspond à ton intention de design :
 
 C'est ton rôle de designer — valide avant de continuer.
 
----
-
-## Étape 2.4 — Implémenter avec Claude Code
+## 4. Implémenter avec Claude Code
 
 Une fois l'API validée, ouvre ton terminal et lance Claude Code :
 
@@ -119,23 +99,19 @@ Après implémentation :
 - Pousse la branche sur GitHub
 ```
 
----
+## 5. Vérifier dans Storybook
 
-## Étape 2.5 — Vérifier dans Storybook
-
-Ouvre **http://localhost:6007** et navigue dans **Composants**.
+Navigue dans **Composants** dans le menu à gauche.
 
 Compare le rendu avec ton composant Figma :
 - Les variants s'affichent correctement ?
 - Les états fonctionnent ?
 - La navigation clavier fonctionne (touche Tab) ?
 
-## Étape 2.6 — Mettre à jour COMPONENTS.md
+## 6. Mettre à jour COMPONENTS.md
 
-Après validation du composant, documente-le dans `COMPONENTS.md`.
+Après validation, documente le composant dans `COMPONENTS.md`.
 Ce fichier est lu par Claude Code pour les futures générations.
-
-Utilise ce prompt dans Claude AI :
 
 ```
 Le composant [NomComposant] vient d'être validé.

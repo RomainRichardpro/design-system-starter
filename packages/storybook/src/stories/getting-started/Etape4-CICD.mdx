@@ -2,31 +2,64 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Démarrage/Étape 4 — CI/CD" />
 
-# Étape 4 — CI/CD
+# Étape 4 — Configurer le CI/CD
 
-Le repo inclut deux workflows GitHub Actions préconfigurés.
+Le CI/CD automatise deux choses :
+- **Les tests** — vérifiés à chaque push sur GitHub
+- **Le déploiement** — Storybook mis à jour automatiquement en ligne
 
-## Workflows inclus
+Tout est déjà configuré dans le code. Tu as juste quelques actions
+à faire dans l'interface GitHub.
 
-### `ci.yml` — Tests automatiques
+## 1. Activer GitHub Pages
 
-Déclenché sur chaque push et pull request vers `main` :
-1. Install des dépendances
-2. Lint TypeScript
-3. Tests Vitest
+1. Va sur ton repo GitHub
+2. Clique sur **Settings** (onglet en haut)
+3. Dans le menu gauche, clique sur **Pages**
+4. Sous "Source", sélectionne **GitHub Actions**
+5. Clique sur **Save**
 
-### `storybook.yml` — Déploiement
+## 2. Vérifier que les workflows sont actifs
 
-Déclenché sur chaque push vers `main` :
-1. Build Storybook
-2. Déploiement sur GitHub Pages
+1. Va sur ton repo GitHub
+2. Clique sur l'onglet **Actions**
+3. Tu dois voir deux workflows :
+   - `CI` — tests et lint
+   - `Deploy Storybook` — déploiement
 
-## Activer GitHub Pages
+Si tu vois un message "Workflows aren't being run on this fork",
+clique sur **"I understand my workflows, go ahead and enable them"**.
 
-1. Va dans **Settings → Pages** de ton repo GitHub
-2. Source : **GitHub Actions**
-3. Le prochain push sur `main` déploiera Storybook automatiquement
+## 3. Activer la protection de branche
 
----
+1. Va dans **Settings → Branches**
+2. Clique sur **"Add branch protection rule"**
+3. Dans "Branch name pattern", tape `main`
+4. Coche ces options :
+   - ✅ Require status checks to pass before merging
+   - ✅ Require branches to be up to date before merging
+   - ✅ Do not allow bypassing the above settings
+5. Clique sur **Create**
 
-✅ **Critère de succès** : Les deux checks CI passent sur ta PR GitHub.
+## 4. Déclencher le premier déploiement
+
+Pousse un commit sur main pour déclencher le premier déploiement :
+
+```bash
+git add .
+git commit -m "chore: activation CI/CD"
+git push origin main
+```
+
+Puis va dans l'onglet **Actions** pour suivre le déploiement en temps réel.
+
+## 5. Trouver l'URL de ton Storybook en ligne
+
+Une fois le déploiement terminé, ton Storybook est accessible à :
+
+```
+https://[TON-COMPTE].github.io/[TON-REPO]/
+```
+
+✅ Storybook s'ouvre en ligne ? Le CI/CD est en place.
+Continue avec **Étape 5 — Code Connect**.

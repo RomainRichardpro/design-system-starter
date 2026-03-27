@@ -2,34 +2,149 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Démarrage/Étape 3 — Premier composant" />
 
-# Étape 3 — Premier composant
+# Étape 3 — Créer ton premier composant
 
-Une fois les tokens en place, tu peux créer ton premier composant React.
+Cette étape te guide dans le workflow complet de création d'un composant,
+de Figma jusqu'au code.
 
-## Structure d'un composant
-
-Chaque composant suit cette structure dans `packages/react/src/components/` :
+## Vue d'ensemble du workflow
 
 ```
-MonComposant/
-├── MonComposant.tsx        # Composant React
-├── MonComposant.module.css # Styles CSS Modules
-├── MonComposant.test.tsx   # Tests
-└── index.ts                # Export
+Figma (design) → Claude AI (lecture + API) → Claude Code (implémentation) → Storybook (vérification)
 ```
 
-## Conventions
-
-- **Props** : TypeScript strict, pas de `any`
-- **Styles** : CSS Modules + CSS Variables uniquement (les tokens)
-- **Accessibilité** : WCAG 2.1 AA obligatoire, focus visible
-- **Tests** : rendu, états, interactions, accessibilité axe
-
-## Mettre à jour COMPONENTS.md
-
-Une fois le composant créé, documente-le dans `COMPONENTS.md` à la racine.
-Ce fichier sert de référence pour la génération automatique via Claude Code.
+Tu utilises **deux outils Claude distincts** :
+- **Claude AI** (claude.ai) — pour lire Figma et définir l'API du composant
+- **Claude Code** (terminal) — pour implémenter les fichiers
 
 ---
 
-✅ **Critère de succès** : `make test` passe et le composant apparaît dans Storybook.
+## Étape 3.1 — Préparer le composant dans Figma
+
+Avant de demander à Claude de lire un composant, il doit être finalisé dans Figma :
+- Tous les variants définis
+- Tous les états représentés (default, hover, focus, disabled, error…)
+- Les variables Figma branchées sur les éléments
+
+### Trouver le Node ID du composant
+
+Le Node ID est l'identifiant unique du composant dans Figma.
+Tu en as besoin pour que Claude puisse le lire directement.
+
+1. Dans Figma, sélectionne le **Component Set** de ton composant
+   (pas un variant individuel — le composant parent qui les contient tous)
+2. Regarde l'URL dans ton navigateur :
+   `https://www.figma.com/file/XXXX/...?node-id=18-797`
+3. Copie la valeur après `node-id=` : `18-797`
+4. Remplace le tiret par deux-points : `18:797`
+   C'est ton Node ID.
+
+---
+
+## Étape 3.2 — Lire le composant avec Claude AI
+
+Ouvre **claude.ai** et utilise ce prompt :
+
+```
+Lis le composant Figma avec le node ID [NODE_ID] dans le fichier [CLÉ_FIGMA].
+Pour ce composant :
+
+- Identifie tous les variants et leurs valeurs
+- Identifie tous les états (default, hover, focus, disabled, error…)
+- Identifie les tailles si applicable
+- Identifie les tokens utilisés (couleurs, espacements, typographie)
+- Propose une API React propre et cohérente qui reflète fidèlement
+  la structure Figma
+
+Ne génère pas de code pour l'instant — je veux d'abord valider l'API.
+```
+
+> **Où trouver la clé Figma ?**
+> Dans l'URL de ton fichier Figma :
+> `https://www.figma.com/file/[CLÉ_FIGMA]/nom-du-fichier`
+
+---
+
+## Étape 3.3 — Valider l'API
+
+Avant de lancer l'implémentation, vérifie que l'API proposée par Claude
+correspond à ton intention de design :
+
+- Les props reflètent bien les variants Figma ?
+- Les états sont tous couverts ?
+- Les noms sont clairs et cohérents avec le reste du DS ?
+
+C'est ton rôle de designer — valide avant de continuer.
+
+---
+
+## Étape 3.4 — Implémenter avec Claude Code
+
+Une fois l'API validée, ouvre ton terminal et lance Claude Code :
+
+```bash
+claude
+```
+
+Utilise ce prompt type :
+
+```
+Travaille sur la branche feat/composant-[NOM]
+(à créer depuis main si elle n'existe pas).
+
+Implémente le composant [NomComposant] dans packages/react/src/components/.
+
+API validée :
+[Colle ici l'API validée avec Claude AI]
+
+Tokens à utiliser :
+[Liste les tokens identifiés à l'étape précédente]
+
+Pour ce composant, crée :
+- [NomComposant].tsx — implémentation React avec TypeScript strict
+- [NomComposant].module.css — styles avec CSS Modules et tokens CSS
+- [NomComposant].test.tsx — tests unitaires, d'interaction et d'accessibilité (jest-axe)
+- index.ts — export du composant
+- Stories Storybook dans packages/storybook/src/stories/composants/[NomComposant]/
+
+Règles absolues :
+- Tokens CSS uniquement — pas de valeur arbitraire
+- WCAG 2.1 AA — navigation clavier, focus visible, ARIA correct
+- TypeScript strict — pas de any
+- Pas de dangerouslySetInnerHTML
+
+Après implémentation :
+- Lance les tests : pnpm test
+- Vérifie que Storybook compile : make dev
+- Pousse la branche sur GitHub
+```
+
+---
+
+## Étape 3.5 — Vérifier dans Storybook
+
+Ouvre **http://localhost:6007** et navigue dans **Composants**.
+
+Compare le rendu avec ton composant Figma :
+- Les variants s'affichent correctement ?
+- Les états fonctionnent ?
+- La navigation clavier fonctionne (touche Tab) ?
+
+## Étape 3.6 — Mettre à jour COMPONENTS.md
+
+Après validation du composant, documente-le dans `COMPONENTS.md`.
+Ce fichier est lu par Claude Code pour les futures générations.
+
+Utilise ce prompt dans Claude AI :
+
+```
+Le composant [NomComposant] vient d'être validé.
+Voici son API : [colle l'API]
+Voici les tokens qu'il utilise : [liste les tokens]
+
+Mets à jour COMPONENTS.md pour ajouter ce composant
+en respectant le format existant.
+```
+
+✅ Le composant apparaît dans Storybook et dans COMPONENTS.md ?
+Continue avec **Étape 4 — CI/CD**.

@@ -2,35 +2,74 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Démarrage/Étape 2 — Tokens" />
 
-# Étape 2 — Import des tokens Figma
+# Étape 2 — Intégrer tes tokens Figma
 
-Les tokens sont la fondation du Design System. Ils définissent toutes les valeurs
-de design (couleurs, espacements, typographie) sous forme de variables CSS.
+Les tokens sont les valeurs fondamentales de ton Design System :
+couleurs, typographie, espacements, rayons de bordure.
 
-## Exporter depuis Figma
+Cette étape transforme tes variables Figma en variables CSS
+utilisables dans tous tes composants.
 
-1. Dans Figma, ouvre le fichier source de ton Design System
-2. Va dans **Plugins → Tokens Studio** (ou utilise l'export natif Figma Variables)
-3. Exporte en format JSON
-4. Remplace le contenu de `packages/tokens/tokens.json` par cet export
+## 1. Exporter tes variables depuis Figma
 
-## Compiler les tokens
+Dans Figma :
+
+1. Ouvre le panneau **Assets** (icône grille en haut à gauche)
+2. Clique sur **"Variables"**
+3. Clique sur l'icône d'export en haut à droite du panneau
+4. Choisis le format **JSON**
+5. Télécharge le fichier
+
+> Le fichier téléchargé contient toutes tes variables Figma
+> dans un format que Style Dictionary peut lire.
+
+## 2. Placer le fichier dans le projet
+
+Remplace le fichier vide par ton export :
+
+```
+packages/tokens/tokens.json  ← remplace ce fichier par ton export Figma
+```
+
+## 3. Adapter le mapping à tes collections
+
+Ouvre `packages/tokens/mapping.config.js`.
+
+Ce fichier fait le lien entre tes collections Figma et les fichiers CSS générés.
+Tu dois adapter les valeurs `figmaCollection` pour qu'elles correspondent
+exactement aux noms de tes collections dans Figma.
+
+Pour trouver le nom exact d'une collection dans Figma :
+1. Ouvre le panneau Variables dans Figma
+2. Le nom de la collection apparaît en haut de chaque groupe
+3. Reporte ce nom exactement dans `mapping.config.js`
+   (attention aux majuscules et aux espaces)
+
+Exemple :
+
+```js
+export default {
+  collections: [
+    {
+      figmaCollection: "Couleurs/Light", // ← nom exact dans Figma
+      output: "colors-light.css",
+      type: "color",
+      mode: "light",
+    },
+    // Ajoute autant d'entrées que tu as de collections
+  ]
+}
+```
+
+## 4. Lancer le build des tokens
 
 ```bash
 make tokens
 ```
 
-Cela génère dans `packages/tokens/build/css/` :
-- `colors-light.css`
-- `colors-dark.css`
-- `numbers.css`
-- `typography.css`
+## 5. Vérifier dans Storybook
 
-## Vérifier dans Storybook
+Ouvre **http://localhost:6007** et navigue dans **Fondations**.
 
-Va dans **Fondations → Couleurs**, **Typographie** ou **Espacements**.
-Les tokens doivent s'afficher.
-
----
-
-✅ **Critère de succès** : `make tokens` s'exécute sans erreur et les pages Fondations affichent les tokens.
+✅ Tu vois tes couleurs, ta typographie et tes espacements ?
+Les tokens sont correctement intégrés.

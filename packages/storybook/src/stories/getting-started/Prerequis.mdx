@@ -4,29 +4,65 @@ import { Meta } from '@storybook/blocks';
 
 # Prérequis
 
-Avant de commencer, vérifie que ton environnement est correctement configuré.
+Avant de commencer, vérifie que tu as bien installé les outils suivants.
 
-## Outils requis
+## Node.js 18 ou plus récent
 
-- **Node.js** 18 ou supérieur
-- **pnpm** 8 ou supérieur
-- **Git**
-- **Figma** avec accès aux Variables du fichier source
+Node.js est le moteur qui fait tourner le projet sur ton ordinateur.
 
-## Vérification
+👉 Télécharge-le sur https://nodejs.org (prends la version LTS)
+
+Pour vérifier que l'installation a fonctionné, ouvre ton terminal et tape :
 
 ```bash
-node --version   # doit afficher v18.x ou supérieur
-pnpm --version   # doit afficher 8.x ou supérieur
-git --version
+node --version
 ```
 
-## Installation de pnpm (si nécessaire)
+Tu dois voir un numéro qui commence par `v18` ou plus.
+
+## pnpm
+
+pnpm est le gestionnaire de dépendances du projet.
 
 ```bash
 npm install -g pnpm
 ```
 
----
+Pour vérifier :
 
-✅ **Critère de succès** : Les trois commandes s'exécutent sans erreur.
+```bash
+pnpm --version
+```
+
+## Git
+
+Git te permet de récupérer le projet et de versionner tes changements.
+
+👉 Télécharge-le sur https://git-scm.com
+
+Pour vérifier :
+
+```bash
+git --version
+```
+
+## Claude Pro avec MCP Figma
+
+Claude AI est ton partenaire pour lire les composants Figma et générer le code.
+Tu as besoin de :
+
+1. Un abonnement **Claude Pro** sur https://claude.ai
+2. Le **MCP Figma** connecté dans Claude
+   (Paramètres → Intégrations → Figma)
+
+## Terminal — si c'est nouveau pour toi
+
+Le terminal est une fenêtre dans laquelle tu tapes des commandes.
+
+- Sur Mac : ouvre **Terminal** (dans Applications → Utilitaires)
+- Sur Windows : ouvre **Git Bash** (installé avec Git)
+
+Tu n'as pas besoin de tout comprendre — chaque commande est expliquée
+dans ce guide.
+
+✅ Tout est installé ? Continue avec **Étape 1 — Initialisation**.

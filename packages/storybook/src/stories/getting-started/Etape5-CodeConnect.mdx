@@ -2,27 +2,76 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Démarrage/Étape 5 — Code Connect" />
 
-# Étape 5 — Code Connect
+# Étape 5 — Connecter Figma et le code (Code Connect)
 
-Code Connect lie tes composants React à leurs contreparties dans Figma.
-Il permet à Figma de proposer le bon code lors du handoff.
+> ⚠️ Cette étape est optionnelle et avancée.
+> Elle est recommandée une fois que tu as au moins 2-3 composants validés.
+
+Code Connect relie chaque composant Figma à son équivalent en code.
+Quand un designer sélectionne un composant dans Figma,
+il voit directement le code React correspondant dans le panneau Dev.
 
 ## Prérequis
 
-- Composants React stables (étape 3 complétée)
-- Figma avec les composants correspondants publiés
+- Avoir au moins un composant implémenté et validé
+- Avoir accès au panneau Dev de Figma (plan Pro ou supérieur)
+- Avoir la CLI Figma installée :
 
-## Configuration
+```bash
+pnpm add -g @figma/code-connect
+```
 
-_Le contenu détaillé de cette étape sera ajouté en Session 4._
+## Structure d'un fichier Code Connect
 
-## Principe général
+Chaque composant a un fichier `[NomComposant].figma.tsx` :
 
-Pour chaque composant, tu crées un fichier `.figma.tsx` qui mappe :
-- Le node ID Figma du composant
-- Les props React correspondantes
-- Les variants Figma → valeurs de props
+```tsx
+import figma from "@figma/code-connect";
+import { [NomComposant] } from "./[NomComposant]";
 
----
+figma.connect(
+  [NomComposant],
+  "https://www.figma.com/file/[CLÉ_FIGMA]?node-id=[NODE_ID]",
+  {
+    props: {
+      // Mapping entre les propriétés Figma et les props React
+      variant: figma.enum("Variant", {
+        primary: "primary",
+        secondary: "secondary",
+      }),
+      disabled: figma.boolean("Disabled"),
+    },
+    example: ({ variant, disabled }) => (
+      <[NomComposant] variant={variant} disabled={disabled} />
+    ),
+  }
+);
+```
 
-✅ **Critère de succès** : Le composant affiche du code React dans le panneau Dev de Figma.
+## Prompt type — Générer le fichier Code Connect
+
+Utilise ce prompt dans Claude AI après avoir validé le composant :
+
+```
+Le composant [NomComposant] est implémenté et validé.
+Node ID Figma : [NODE_ID]
+Clé du fichier Figma : [CLÉ_FIGMA]
+
+Génère le fichier [NomComposant].figma.tsx pour Code Connect.
+Base-toi sur :
+- L'API React validée : [colle l'API]
+- Les propriétés Figma identifiées lors de la lecture du composant
+
+Le fichier doit mapper fidèlement les propriétés Figma vers les props React.
+```
+
+## Publier les connexions
+
+Une fois les fichiers `.figma.tsx` créés :
+
+```bash
+pnpm figma connect publish
+```
+
+✅ Dans Figma, sélectionne un composant et ouvre le panneau Dev.
+Tu vois le code React ? Code Connect est en place.

@@ -17,4 +17,4 @@ make setup
 make dev
 ```
 
-Ouvre http://localhost:6006 — le guide complet est dans Storybook.
+Ouvre http://localhost:6007 — le guide complet est dans Storybook.

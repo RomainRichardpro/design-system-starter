@@ -2,15 +2,11 @@
 // Adaptée pour les exports Figma Variables (format propriétaire Figma)
 
 import StyleDictionary from 'style-dictionary';
-import { register } from '@tokens-studio/sd-transforms';
 import { mkdirSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Enregistre les transforms tokens-studio
-register(StyleDictionary);
 
 // ─── Transformer custom : couleurs Figma ───────────────────────────────────
 // Le format Figma JSON exporte les couleurs comme :
@@ -56,7 +52,6 @@ StyleDictionary.registerTransform({
 // ─── Configuration principale ──────────────────────────────────────────────
 const sd = new StyleDictionary({
   source: [resolve(__dirname, 'tokens.json')],
-  preprocessors: ['tokens-studio'],
   platforms: {
     'css-colors-light': {
       transforms: ['color/figma-hex', 'name/kebab'],

@@ -15,6 +15,25 @@ const preview: Preview = {
     docs: {
       toc: true,
     },
+    options: {
+      storySort: {
+        order: [
+          'Démarrage',
+          [
+            'Bienvenue',
+            'Prérequis',
+            'Étape 1 — Initialisation',
+            'Étape 2 — Tokens',
+            'Étape 3 — Premier composant',
+            'Étape 4 — CI/CD',
+            'Étape 5 — Code Connect',
+          ],
+          'Fondations',
+          ['Couleurs', 'Typographie', 'Espacements'],
+          'Composants',
+        ],
+      },
+    },
   },
 };
 

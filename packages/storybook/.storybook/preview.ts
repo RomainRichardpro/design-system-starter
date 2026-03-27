@@ -1,3 +1,7 @@
+// Chargement global des tokens CSS dans Storybook
+// Requiert d'avoir lancé `make tokens` au préalable.
+import '@starter/tokens/css/index';
+
 import type { Preview } from '@storybook/react';
 
 const preview: Preview = {

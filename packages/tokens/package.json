@@ -10,6 +10,7 @@
     "style-dictionary": "^4.0.0"
   },
   "exports": {
+    "./css/index": "./build/css/index.css",
     "./css/colors-light": "./build/css/colors-light.css",
     "./css/colors-dark": "./build/css/colors-dark.css",
     "./css/numbers": "./build/css/numbers.css",

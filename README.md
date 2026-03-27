@@ -1,5 +1,7 @@
 # Design System Starter
 
+![CI](https://github.com/RomainRichardpro/design-system-starter/workflows/CI/badge.svg)
+
 > Un template pour industrialiser un Design System avec Figma, React et Claude AI.
 
 ## Ce que ce template te permet de faire

@@ -1,0 +1,36 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Démarrage/Étape 2 — Tokens" />
+
+# Étape 2 — Import des tokens Figma
+
+Les tokens sont la fondation du Design System. Ils définissent toutes les valeurs
+de design (couleurs, espacements, typographie) sous forme de variables CSS.
+
+## Exporter depuis Figma
+
+1. Dans Figma, ouvre le fichier source de ton Design System
+2. Va dans **Plugins → Tokens Studio** (ou utilise l'export natif Figma Variables)
+3. Exporte en format JSON
+4. Remplace le contenu de `packages/tokens/tokens.json` par cet export
+
+## Compiler les tokens
+
+```bash
+make tokens
+```
+
+Cela génère dans `packages/tokens/build/css/` :
+- `colors-light.css`
+- `colors-dark.css`
+- `numbers.css`
+- `typography.css`
+
+## Vérifier dans Storybook
+
+Va dans **Fondations → Couleurs**, **Typographie** ou **Espacements**.
+Les tokens doivent s'afficher.
+
+---
+
+✅ **Critère de succès** : `make tokens` s'exécute sans erreur et les pages Fondations affichent les tokens.

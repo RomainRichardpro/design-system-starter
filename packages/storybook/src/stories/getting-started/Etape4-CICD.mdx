@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Démarrage/Étape 4 — CI/CD" />
+
+# Étape 4 — CI/CD
+
+Le repo inclut deux workflows GitHub Actions préconfigurés.
+
+## Workflows inclus
+
+### `ci.yml` — Tests automatiques
+
+Déclenché sur chaque push et pull request vers `main` :
+1. Install des dépendances
+2. Lint TypeScript
+3. Tests Vitest
+
+### `storybook.yml` — Déploiement
+
+Déclenché sur chaque push vers `main` :
+1. Build Storybook
+2. Déploiement sur GitHub Pages
+
+## Activer GitHub Pages
+
+1. Va dans **Settings → Pages** de ton repo GitHub
+2. Source : **GitHub Actions**
+3. Le prochain push sur `main` déploiera Storybook automatiquement
+
+---
+
+✅ **Critère de succès** : Les deux checks CI passent sur ta PR GitHub.

@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Démarrage/Étape 1 — Initialisation" />
+
+# Étape 1 — Initialisation du projet
+
+Cette étape installe les dépendances et vérifie que l'infrastructure fonctionne.
+
+## Cloner et installer
+
+```bash
+git clone https://github.com/RomainRichardpro/design-system-starter.git mon-design-system
+cd mon-design-system
+make setup
+```
+
+## Lancer Storybook
+
+```bash
+make dev
+```
+
+Ouvre http://localhost:6006 — tu devrais voir ce guide.
+
+## Structure du projet
+
+```
+mon-design-system/
+├── packages/
+│   ├── tokens/      # Tokens CSS (vide pour l'instant)
+│   ├── react/       # Composants React (vide pour l'instant)
+│   └── storybook/   # Documentation et vitrine
+└── Makefile         # Commandes disponibles
+```
+
+---
+
+✅ **Critère de succès** : Storybook est accessible sur localhost:6006.

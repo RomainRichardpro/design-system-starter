@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Démarrage/Étape 3 — Premier composant" />
+
+# Étape 3 — Premier composant
+
+Une fois les tokens en place, tu peux créer ton premier composant React.
+
+## Structure d'un composant
+
+Chaque composant suit cette structure dans `packages/react/src/components/` :
+
+```
+MonComposant/
+├── MonComposant.tsx        # Composant React
+├── MonComposant.module.css # Styles CSS Modules
+├── MonComposant.test.tsx   # Tests
+└── index.ts                # Export
+```
+
+## Conventions
+
+- **Props** : TypeScript strict, pas de `any`
+- **Styles** : CSS Modules + CSS Variables uniquement (les tokens)
+- **Accessibilité** : WCAG 2.1 AA obligatoire, focus visible
+- **Tests** : rendu, états, interactions, accessibilité axe
+
+## Mettre à jour COMPONENTS.md
+
+Une fois le composant créé, documente-le dans `COMPONENTS.md` à la racine.
+Ce fichier sert de référence pour la génération automatique via Claude Code.
+
+---
+
+✅ **Critère de succès** : `make test` passe et le composant apparaît dans Storybook.
